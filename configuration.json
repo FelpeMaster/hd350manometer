@@ -1,11 +1,11 @@
 {
-  "device":"/dev/serial/by-id/",
-  "databasePath":"/home/pi/Documentos/receiverArduino/database",
+  "port":"/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
+  "databasePath":"/home/pi/Documentos/hd350manometer/database",
   "databasefile":"hd350Data.csv",
   "variables":{
-    "variable1" : "windspeed",
+    "variable1" : "pressure",
     "variable2" : "flow",
-    "variable3" : "temperature",
-    "variable4" : "velocity"
+    "variable3" : "windspeed",
+    "variable4" : "temperature"
   }
 }
