@@ -1,0 +1,11 @@
+{
+  "device":"/dev/serial/by-id/",
+  "databasePath":"/home/pi/Documentos/receiverArduino/database",
+  "databasefile":"hd350Data.csv",
+  "variables":{
+    "variable1" : "windspeed",
+    "variable2" : "flow",
+    "variable3" : "temperature",
+    "variable4" : "velocity"
+  }
+}
