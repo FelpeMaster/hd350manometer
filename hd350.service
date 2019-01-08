@@ -1,0 +1,17 @@
+#install at /etc/systemd/systemd
+# to enable service sudo systemd enable hd350.service
+# to start service sudo systemd start hd350.service
+
+[unit]
+Description=Get PM concentration and TWA
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/bin/env python3 /home/pi/hd350manometer/readManometer.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
