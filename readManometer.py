@@ -37,7 +37,6 @@ class hd350:
                 data = self.decodeData(d)
                 if data:
                     self.addData(data)
-                    print (data)
             self.s.flushInput()
 
     def createDatabaseDirectory(self):
@@ -58,6 +57,7 @@ class hd350:
                 writer.writeheader()
 
     def addData(self, measurementsArray):
+        print (measurementsArray)
         with open(self.csvfile, 'a') as f:
             w = csv.writer(f)
             w.writerow(measurementsArray)
@@ -83,7 +83,7 @@ class hd350:
             #        'flow':flow,
             #        'windspeed': wind,
             #        'temperature': temp}
-            measurementsArray = [timestamp, temperature, flow, wind, press]
+            measurementsArray = [timestamp, temp, flow, wind, press]
             return measurementsArray
 
 if __name__ == "__main__":
