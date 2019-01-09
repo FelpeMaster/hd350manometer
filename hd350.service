@@ -2,7 +2,7 @@
 # to enable service sudo systemd enable hd350.service
 # to start service sudo systemd start hd350.service
 
-[unit]
+[Unit]
 Description=Get PM concentration and TWA
 
 [Service]

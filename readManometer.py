@@ -38,7 +38,6 @@ class hd350:
                 if data:
                     self.addData(data)
                     print (data)
-            time.sleep(10)
             self.s.flushInput()
 
     def createDatabaseDirectory(self):
@@ -57,11 +56,11 @@ class hd350:
             with open(self.csvfile, 'w') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=arrayOfVariableNames)
                 writer.writeheader()
-    def addData(self, dict):
-        with open(self.csvfile, 'a') as f:
-            w = csv.DictWriter(f, dict.keys())
-            w.writerow(dict)
 
+    def addData(self, measurementsArray):
+        with open(self.csvfile, 'a') as f:
+            w = csv.writer(f)
+            w.writerow(measurementsArray)
 
     def connectToHD350(self):
         self.s = serial.Serial(self.port, baudrate = 9600, xonxoff=False, bytesize = 8, parity='N', stopbits=1)
@@ -79,12 +78,13 @@ class hd350:
             flow = struct.unpack('f', rawFlow)[0]
             temp = float(struct.unpack('h', rawTemp)[0]/10.)
             timestamp = int(time.time())
-            dict = {'timestamp':timestamp,
-                    'pressure': press,
-                    'flow':flow,
-                    'windspeed': wind,
-                    'temperature': temp}
-            return dict
+            #dict = {'timestamp':timestamp,
+            #        'pressure': press,
+            #        'flow':flow,
+            #        'windspeed': wind,
+            #        'temperature': temp}
+            measurementsArray = [timestamp, temperature, flow, wind, press]
+            return measurementsArray
 
 if __name__ == "__main__":
     hd350 = hd350()
