@@ -19,7 +19,7 @@ flow in CMM
 
 class hd350:
     def __init__(self):
-        with open('/home/pi/Documentos/hd350manometer/configuration.json','r') as file:
+        with open('/home/pi/hd350manometer/configuration.json','r') as file:
             self.deviceConf = json.load(file)
         self.port = self.deviceConf['port']
         self.createDatabaseDirectory()
