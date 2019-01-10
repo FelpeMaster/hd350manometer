@@ -3,7 +3,7 @@
 # to start service sudo systemd start hd350.service
 
 [Unit]
-Description=Get PM concentration and TWA
+Description=Get measurements from hd350 Pitot tube and Manometer
 
 [Service]
 Type=simple

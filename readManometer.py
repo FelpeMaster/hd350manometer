@@ -28,15 +28,14 @@ class hd350:
         mHandMessage = bytearray([0xaa, 0xbb, 0x0c])
         mHandConnectMetter = bytearray([0xaa, 0xbb, 0x01])
         while True:
-            m = mHandMessage
-            self.s.write(m)
-            m = mHandConnectMetter
-            self.s.write(m)
+            self.s.write(mHandMessage)
+            self.s.write(mHandConnectMetter)
             for i in range(5):
                 d = self.s.read(46)
                 data = self.decodeData(d)
                 if data:
                     self.addData(data)
+                    print (data)
             self.s.flushInput()
 
     def createDatabaseDirectory(self):
@@ -48,16 +47,12 @@ class hd350:
         self.createDatabaseDirectory()
         self.csvfile = self.deviceConf['databasefile']
         if not os.path.isfile(self.csvfile):
-            variables = self.deviceConf['variables']
-            arrayOfVariableNames = ['timestamp']
-            for v, value in variables.items():
-                arrayOfVariableNames.append(value)
+            arrayOfVariableNames = ['timestamp', 'temperature', 'flow', 'wind', 'pressure']
             with open(self.csvfile, 'w') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=arrayOfVariableNames)
                 writer.writeheader()
 
     def addData(self, measurementsArray):
-        print (measurementsArray)
         with open(self.csvfile, 'a') as f:
             w = csv.writer(f)
             w.writerow(measurementsArray)
@@ -73,17 +68,12 @@ class hd350:
             rawWind  = m[12:16]
             rawFlow = m[16:20]
             rawTemp = m[20:22]
-            press = struct.unpack('f', rawPress)[0]
+            pressure = struct.unpack('f', rawPress)[0]
             wind = struct.unpack('f', rawWind)[0]
             flow = struct.unpack('f', rawFlow)[0]
-            temp = float(struct.unpack('h', rawTemp)[0]/10.)
+            temperature = float(struct.unpack('h', rawTemp)[0]/10.)
             timestamp = int(time.time())
-            #dict = {'timestamp':timestamp,
-            #        'pressure': press,
-            #        'flow':flow,
-            #        'windspeed': wind,
-            #        'temperature': temp}
-            measurementsArray = [timestamp, temp, flow, wind, press]
+            measurementsArray = [timestamp, temperature, flow, wind, pressure]
             return measurementsArray
 
 if __name__ == "__main__":
